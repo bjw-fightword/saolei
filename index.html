@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	 <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>扫雷</title>
+	<script src="jquery-1-12-1.js"></script>
+	<link rel="stylesheet" href="css.css">
+</head>
+<body>
+	<div class="sence">
+		
+	</div>
+
+
+
+
+<div class="container">
+	<div class="containers">
+	<input id="start" name="controls" type="radio" />
+	<input id="stop" name="controls" type="radio" />
+	<input id="reset" name="controls" type="radio" />
+	<div class="timer">
+		<div class="cell">
+			<div class="numbers tenhour moveten">0 1 2 3 4 5 6 7 8 9</div>
+		</div>
+		<div class="cell">
+			<div class="numbers hour moveten">0 1 2 3 4 5 6 7 8 9</div>
+		</div>
+		<div class="cell divider"><div class="numbers">:</div></div>
+		<div class="cell">
+			<div class="numbers tenminute movesix">0 1 2 3 4 5 6</div>
+		</div>
+		<div class="cell">
+			<div class="numbers minute moveten">0 1 2 3 4 5 6 7 8 9</div>
+		</div>
+		<div class="cell divider"><div class="numbers">:</div></div>
+		<div class="cell">
+			<div class="numbers tensecond movesix">0 1 2 3 4 5 6</div>
+		</div>
+		<div class="cell">
+			<div class="numbers second moveten">0 1 2 3 4 5 6 7 8 9</div>
+		</div>
+		<div class="cell divider"><div class="numbers">:</div></div>
+		<div class="cell">
+			<div class="numbers milisecond moveten">0 1 2 3 4 5 6 7 8 9</div>
+		</div>
+		<div class="cell">
+			<div class="numbers tenmilisecond moveten">0 1 2 3 4 5 6 7 8 9</div>
+		</div>
+		<div class="cell">
+			<div class="numbers hundredmilisecond moveten">0 1 2 3 4 5 6 7 8 9</div>
+		</div>
+	</div>
+	<!-- 控制按钮 -->
+	<div id="timer_controls">
+		<label for="start">Start</label>
+		<label for="stop">Stop</label>
+		<label for="reset">Reset</label>
+	</div>
+	</div>
+</div>
+
+
+<script src="prefixfree.js" type="text/javascript"></script>
+</body>
+<script>
+$(function(){
+	var row=20;
+	var el=' ';
+	for(var i=0;i<Math.pow(row+2,2);i++){
+		el += "<div></div>"
+	}
+	var colors=["red","green","blue","pink","yellow","orange","brow"];
+	$(".sence")
+	.html(el)
+	.find('div')
+	.addClass(function(i){
+		return "block "+colors[i%7];
+	});
+
+
+	$(".sence")
+	.find("div:lt(23)")
+	.removeClass().end()
+	.find("div:gt(461)")
+	.removeClass().end()
+	.find("div:nth-child(22n+1)")
+	.removeClass().end()
+	.find("div:nth-child(22n)")
+	.removeClass().end()
+
+	.find("div")
+	.each(function(i){
+		$(this).data("index",i)
+	})
+
+
+
+	$(".sence").find(".block")
+	.each(function(){
+		if(Math.random()>0.8){
+			$(this).data("islei",true).text(" ");
+		}
+	})
+
+
+
+	$(".sence div").click(function(){
+		if( $(this).data('islei') ){
+			alert("你输了");
+			$(".sence .block")
+			.removeClass()
+			.addClass('block')
+			.addClass(function(i){
+				if($(".sence .block").eq(i).data('islei')){
+					return 'scale'
+				}
+			})
+			.each(function(){
+				if($(this).data('islei')){
+					$(this).css({'animation-dely':Math.random().toFixed(2)+'s',background:'linear-gradient(70deg, #1a1a1a, #fff)'})
+				}
+			})
+		}else{
+			var pos=$(this).data("index");
+			var num=0;
+			if($(".sence div").eq(pos-1).data("islei")){num+=1};
+			if($(".sence div").eq(pos+1).data("islei")){num+=1};
+			if($(".sence div").eq(pos-21).data("islei")){num+=1};
+			if($(".sence div").eq(pos-22).data("islei")){num+=1};
+			if($(".sence div").eq(pos+21).data("islei")){num+=1};
+			if($(".sence div").eq(pos+22).data("islei")){num+=1};
+			if($(".sence div").eq(pos-23).data("islei")){num+=1};
+			if($(".sence div").eq(pos+23).data("islei")){num+=1};
+			$(this).text(num);
+		}
+	})
+})
+</script>
+</html>
