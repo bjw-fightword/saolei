@@ -17,6 +17,7 @@ body{
 		line-height: 23px;
 		font-family: "微软雅黑";
 	}
+
 	.red{
 		background: linear-gradient(70deg, blue, red);
 	}
@@ -165,4 +166,21 @@ input[name="controls"] {display: none;}
 	font-family: 'digital';
 	src: url('http://thecodeplayer.com/uploads/fonts/DS-DIGI.TTF');
 	
+}
+@media(max-width: 640px){
+	.sence{
+		width: 360px;
+		height: 360px;
+	}
+	.block{
+		float: left;
+		width: 16px;
+		height: 16px;
+		line-height: 16px;
+		font-family: "微软雅黑";
+	}
+	.timer{
+		padding: 0;
+		margin-top: 30px;
+	}
 }
